@@ -3,14 +3,20 @@ const express = require("express");
 
 const app = express();
 
-app.use((req, res, next) => {
+app.get("/favicon.ico", (req, res) => res.sendStatus(204));
+
+app.use("/", (req, res, next) => {
+  console.log("This always runs");
+  next();
+});
+
+app.use("/add-product", (req, res, next) => {
   console.log("In the middleware");
-  next(); //Allows the request to continue to the next middleware in line
+  res.send("<h1>Add product page</h1>");
 });
 
 app.use((req, res, next) => {
   console.log("In another middleware");
-  //...send a response here if not calling another middleware through next();
   res.send("<h1>Hello from Express!</h1>");
 });
 
