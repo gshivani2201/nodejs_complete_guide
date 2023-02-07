@@ -1,9 +1,25 @@
-const http = require('http');
+const express = require("express");
 
-const routes = require('./routes');
+const app = express();
 
-console.log(routes.someText);
+// app.use((req, res, next) => {
+//     console.log("middleware 1")
+//     next();
+// })
 
-const server = http.createServer(routes.handler);
+// app.use((req, res, next) => {
+//     console.log("middleware 2")
+//     res.send("<h1>Hello World</h1>")
+// })
 
-server.listen(3000);
+app.use("/users", (req, res, next) => {
+  console.log("middleware 1");
+  res.send("<ul><li>user 1</li><li>user 2</li></ul>");
+});
+
+app.use("/", (req, res, next) => {
+  console.log("middleware 2");
+  res.send("<h1>Hello World</h1>");
+});
+
+app.listen(5000);
