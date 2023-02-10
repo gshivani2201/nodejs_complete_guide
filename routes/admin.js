@@ -1,12 +1,12 @@
 const express = require("express");
+const path = require("path");
 const router = express.Router();
+
 //same routes can be used for different methods like get, post, put etc.
 
-//  /add-product => for GET request
 router.get("/add-product", (req, res, next) => {
-  res.send(
-    "<html><body><form action='/admin/add-product' method='POST'><input type='text' name='title'><button type='submit'>Add Product</button></form></body></html>"
-  );
+  res.sendFile(path.join(__dirname, "../", "views", "add-product.html"));
+  //__dirname points to routes folder, so we add "../"
 });
 
 //  /add-product => for POST request
