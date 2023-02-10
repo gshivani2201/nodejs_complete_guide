@@ -1,10 +1,10 @@
 // 3rd party package
 const express = require("express");
+const bodyParser = require("body-parser");
 const path = require("path");
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
-const bodyParser = require("body-parser");
 
 const app = express();
 

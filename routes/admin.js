@@ -1,11 +1,14 @@
 const express = require("express");
 const path = require("path");
+
+const rootDir = require("../utils/path");
+
 const router = express.Router();
 
 //same routes can be used for different methods like get, post, put etc.
 
 router.get("/add-product", (req, res, next) => {
-  res.sendFile(path.join(__dirname, "../", "views", "add-product.html"));
+  res.sendFile(path.join(rootDir, "views", "add-product.html"));
   //__dirname points to routes folder, so we add "../"
 });
 
