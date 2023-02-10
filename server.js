@@ -8,6 +8,9 @@ const shopRoutes = require("./routes/shop");
 
 const app = express();
 
+app.set("view engine", "pug"); //to set configurations
+app.set("views", "views");
+
 app.get("/favicon.ico", (req, res) => res.sendStatus(204));
 
 app.use(bodyParser.urlencoded({ extended: false }));
