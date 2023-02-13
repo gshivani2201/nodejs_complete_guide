@@ -3,8 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 
-const adminData = require("./routes/admin");
-const shopRoutes = require("./routes/shop");
+const usersData = require("./routes/users");
+const indexRoutes = require("./routes/index");
 
 const app = express();
 
@@ -16,8 +16,8 @@ app.get("/favicon.ico", (req, res) => res.sendStatus(204));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/admin", adminData.routes);
-app.use(shopRoutes);
+app.use("/users", usersData.routes);
+app.use(indexRoutes);
 
 app.use((req, res, next) => {
   res
