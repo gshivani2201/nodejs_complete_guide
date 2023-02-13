@@ -11,10 +11,6 @@ router.get("/add-product", (req, res, next) => {
   res.render("add-product", {
     pageTitle: "Add Product page",
     path: "/admin/add-product",
-    // layout: false,
-    formCSS: true,
-    productCSS: true,
-    activeAddProduct: true,
   });
 });
 
@@ -23,6 +19,5 @@ router.post("/add-product", (req, res, next) => {
   res.redirect("/");
 });
 
-// module.exports = router;
 exports.routes = router;
 exports.products = products;
