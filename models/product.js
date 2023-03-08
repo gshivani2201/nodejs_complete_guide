@@ -21,6 +21,10 @@ const Product = sequelize.define("product", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  price: {
+    type: DataTypes.DOUBLE,
+    allowNull: false,
+  }
 });
 
 module.exports = Product;
