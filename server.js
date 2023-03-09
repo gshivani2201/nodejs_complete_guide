@@ -21,6 +21,15 @@ app.get("/favicon.ico", (req, res) => res.sendStatus(204));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use((req, res, next) => {
+  User.findByPk(1)
+    .then((user) => {
+      req.user = user;
+      next();
+    })
+    .catch((err) => console.log(err));
+});
+
 app.use("/admin", adminRoutes.routes);
 app.use(shopRoutes);
 
@@ -30,9 +39,19 @@ Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE'});
 User.hasMany(Product);
 
 sequelize
-  .sync({ force: true })
+  .sync()
   .then((result) => {
+    return User.findByPk(1);
     // console.log(result);
+  })
+  .then(user => {
+    if (!user) {
+      return User.create({name: "Shivani", email: "test@test.com"})
+    }
+    return Promise.resolve(user);
+  })
+  .then(user => {
+    // console.log(user);
     app.listen(3000);
   })
   .catch((err) => console.log(err));
