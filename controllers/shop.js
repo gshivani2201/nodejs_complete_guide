@@ -66,6 +66,7 @@ exports.getCart = (req, res, next) => {
 exports.postCart = (req, res, next) => {
   const prodId = req.body.productId;
   let fetchedCart;
+  let newQty = 1;
   req.user
     .getCart()
     .then((cart) => {
@@ -77,17 +78,17 @@ exports.postCart = (req, res, next) => {
       if (products.length > 0) {
         product = products[0];
       }
-      let newQty = 1;
       if (product) {
-        //...
+        const oldQty = product.cartItems.quantity;
+        newQty = oldQty + 1;
+        return product;
       }
-      return Product.findByPk(prodId)
-        .then((product) => {
-          return fetchedCart.addProduct(product, {
-            through: { quantity: newQty },
-          });
-        })
-        .catch((err) => console.log(err));
+      return Product.findByPk(prodId);
+    })
+    .then((product) => {
+      return fetchedCart.addProduct(product, {
+        through: { quantity: newQty },
+      });
     })
     .then(() => {
       res.redirect("/cart");
