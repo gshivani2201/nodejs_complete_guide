@@ -1,6 +1,13 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const getDb = require("../utils/database").getDb;
 
-const sequelize = require("../utils/database");
+class Product {
+  constructor(title, price, desc, imageUrl) {
+    (this.title = title),
+      (this.price = price),
+      (this.description = desc),
+      (this.imageUrl = imageUrl);
+  }
+}
 
 const Product = sequelize.define("product", {
   id: {
@@ -24,7 +31,7 @@ const Product = sequelize.define("product", {
   price: {
     type: DataTypes.DOUBLE,
     allowNull: false,
-  }
+  },
 });
 
 module.exports = Product;
