@@ -18,6 +18,7 @@ exports.postAddProduct = (req, res, next) => {
     price: price,
     description: description,
     imageUrl: imageUrl,
+    userId: req.user._id,
   });
   product
     .save() // save method provided by mongoose
@@ -70,10 +71,10 @@ exports.postEditProduct = (req, res, next) => {
 
   Product.findById(prodId)
     .then((product) => {
-      (product.title = updatedTitle),
-        (product.price = updatedPrice),
-        (product.description = updatedDescription),
-        (product.imageUrl = updatedImageUrl);
+      product.title = updatedTitle;
+      product.price = updatedPrice;
+      product.description = updatedDescription;
+      product.imageUrl = updatedImageUrl;
       return product.save();
     })
     .then((result) => {
