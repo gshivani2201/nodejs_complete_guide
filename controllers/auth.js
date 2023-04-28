@@ -86,33 +86,25 @@ exports.postSignup = (req, res, next) => {
       errorMessage: errors.array()[0].msg,
     });
   }
-  User.findOne({ email: email })
-    .then((userDoc) => {
-      if (userDoc) {
-        req.flash("error", "E-mail already exists!");
-        return res.redirect("/signup");
-      }
-      return bcrypt
-        .hash(password, 12)
-        .then((hashedPassword) => {
-          const user = new User({
-            email,
-            password: hashedPassword,
-            cart: { items: [] },
-          });
-          return user.save();
-        })
-        .then((savedUser) => {
-          if (savedUser) res.redirect("/login");
-          return transporter.sendMail({
-            from: "<foo@example.com>", // sender address
-            to: email, // list of receivers
-            subject: "Hello ✔", // Subject line
-            text: "Signup succeeded", // plain text body
-            html: "<h1>You have successfully signed up!</h1>", // html body
-          });
-        })
-        .catch((err) => console.log(err));
+  bcrypt
+    .hash(password, 12)
+    .then((hashedPassword) => {
+      const user = new User({
+        email,
+        password: hashedPassword,
+        cart: { items: [] },
+      });
+      return user.save();
+    })
+    .then((savedUser) => {
+      if (savedUser) res.redirect("/login");
+      return transporter.sendMail({
+        from: "<foo@example.com>", // sender address
+        to: email, // list of receivers
+        subject: "Hello ✔", // Subject line
+        text: "Signup succeeded", // plain text body
+        html: "<h1>You have successfully signed up!</h1>", // html body
+      });
     })
     .catch((err) => console.log(err));
 };
