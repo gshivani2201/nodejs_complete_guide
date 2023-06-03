@@ -165,6 +165,8 @@ exports.getInvoice = (req, res, next) => {
       const invoicePath = path.join("data", "invoices", invoiceName);
 
       const pdfDoc = new PDFDocument();
+      let totalPrice = 0;
+
       res.setHeader("Content-Type", "application/pdf");
       res.setHeader(
         "Content-Disposition",
@@ -173,7 +175,19 @@ exports.getInvoice = (req, res, next) => {
       pdfDoc.pipe(fs.createWriteStream(invoicePath));
       pdfDoc.pipe(res);
 
-      pdfDoc.text("Hello world!");
+      pdfDoc.fontSize(26).text("Invoice", {
+        underline: true,
+      });
+
+      pdfDoc.text("------------------------------------------");
+      order.products.forEach((prod) => {
+        totalPrice += prod.quantity * prod.product.price;
+        pdfDoc
+          .fontSize(14)
+          .text(`${prod.product.title}-${prod.quantity}x $${prod.product.price}`);
+      });
+      pdfDoc.text("------------------------------------------");
+      pdfDoc.text(`Total Price: $${totalPrice}`);
 
       pdfDoc.end();
 
