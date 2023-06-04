@@ -5,6 +5,8 @@ const PDFDocument = require("pdfkit");
 const Product = require("../models/product");
 const Order = require("../models/order");
 
+const ITEMS_PER_PAGE = 3;
+
 exports.getProducts = (req, res, next) => {
   Product.find()
     .then((products) => {
@@ -39,7 +41,11 @@ exports.getProduct = (req, res, next) => {
 };
 
 exports.getIndex = (req, res, next) => {
+  const page = req.query.page;
+
   Product.find()
+    .skip((page - 1) * ITEMS_PER_PAGE)
+    .limit(ITEMS_PER_PAGE)
     .then((products) => {
       res.render("shop/index", {
         prods: products,
@@ -184,7 +190,9 @@ exports.getInvoice = (req, res, next) => {
         totalPrice += prod.quantity * prod.product.price;
         pdfDoc
           .fontSize(14)
-          .text(`${prod.product.title}-${prod.quantity}x $${prod.product.price}`);
+          .text(
+            `${prod.product.title}-${prod.quantity}x $${prod.product.price}`
+          );
       });
       pdfDoc.text("------------------------------------------");
       pdfDoc.text(`Total Price: $${totalPrice}`);
