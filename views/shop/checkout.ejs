@@ -19,6 +19,21 @@
          <div class="centered">
             <h2>Total: <%= totalSum %></h2>
          </div>
+         <div class="centered">
+            <button id="order-btn" class="btn">ORDER</button>
+            <script src="https://js.stripe.com/v3/"></script>
+         </div>
     </main>
+
+    <script>
+        var stripe = Stripe('pk_test_51NFEbbSJxOm9ftFA4YqFRz4plau5mEDdwdxBu3p25WBLl5Pguqh8oROCketZxvArEV3qNnnvV2vO56gEGM9q9MZj000dLuyPQe');
+        var orderBtn =  document.getElementById("order-btn");
+
+        orderBtn.addEventListener("click", () => {
+            stripe.redirectToCheckout({
+                sessionId: "<%= sessionId %>"
+            })
+        })
+    </script>
     
 <%- include('../includes/end.ejs')  %>
