@@ -1,0 +1,8 @@
+{
+  "env": {
+    "MONGO_USER": "node-shivani",
+    "MONGO_PASSWORD": "iJX1XgSGr6nprkn4",
+    "MONGO_DB": "shop",
+    "STRIPE_KEY": "sk_test_51NFEbbSJxOm9ftFANJw9SioSeeDOVQaH7nEVfc4UzkLEPrimijCkvjHzg1qQ1VBGHiFMfP21xAwTmgIEbdxfeV0e00C3dsmwvh"
+  }
+}
