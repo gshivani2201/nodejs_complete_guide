@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Complete nodejs course learnings",
   "main": "server.js",
+  "engines": {
+    "node": "18.13.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "set NODE_ENV=production&& set MONGO_USER=node-shivani&& set MONGO_PASSWORD=iJX1XgSGr6nprkn4&& set MONGO_DB=shop&& set STRIPE_KEY=sk_test_51NFEbbSJxOm9ftFANJw9SioSeeDOVQaH7nEVfc4UzkLEPrimijCkvjHzg1qQ1VBGHiFMfP21xAwTmgIEbdxfeV0e00C3dsmwvh&& node server.js",
@@ -21,9 +24,6 @@
   "homepage": "https://github.com/gshivani2201/nodejs_complete_guide#readme",
   "devDependencies": {
     "nodemon": "^2.0.20"
-  },
-  "engines": {
-    "node": ">=14 <17"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

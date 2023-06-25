@@ -5,3 +5,5 @@ package-lock.json
 message.txt
 
 server.key
+
+server.cert
